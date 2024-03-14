@@ -438,6 +438,14 @@ namespace Ryujinx.Ava
             _isActive = false;
         }
 
+        private void Close()
+        {
+            if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime app)
+            {
+                app.MainWindow.Close();
+            }
+        }
+
         public void DisposeContext()
         {
             Dispose();
@@ -874,7 +882,7 @@ namespace Ryujinx.Ava
             while (_isActive)
             {
                 UpdateFrame();
-
+                
                 // Polling becomes expensive if it's not slept.
                 Thread.Sleep(1);
             }
@@ -1152,7 +1160,7 @@ namespace Ryujinx.Ava
             return true;
         }
 
-        private KeyboardHotkeyState GetHotkeyState()
+        public KeyboardHotkeyState GetHotkeyState()
         {
             KeyboardHotkeyState state = KeyboardHotkeyState.None;
 
@@ -1191,6 +1199,10 @@ namespace Ryujinx.Ava
             else if (_keyboardInterface.IsPressed((Key)ConfigurationState.Instance.Hid.Hotkeys.Value.VolumeDown))
             {
                 state = KeyboardHotkeyState.VolumeDown;
+            }
+            else if (_keyboardInterface.IsPressed((Key)ConfigurationState.Instance.Hid.Hotkeys.Value.ExitRyujinx))
+            {
+                Close();
             }
 
             return state;

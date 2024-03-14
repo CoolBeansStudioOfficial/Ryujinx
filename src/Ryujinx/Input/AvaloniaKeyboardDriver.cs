@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Ryujinx.Ava.Common.Locale;
 using Ryujinx.Input;
+using Ryujinx.UI.Common.Configuration;
 using System;
 using System.Collections.Generic;
 using AvaKey = Avalonia.Input.Key;
@@ -73,6 +74,7 @@ namespace Ryujinx.Ava.Input
             _pressedKeys.Add(args.Key);
 
             KeyPressed?.Invoke(this, args);
+            Console.WriteLine("yippeekeeya io");
         }
 
         protected void OnKeyRelease(object sender, KeyEventArgs args)
